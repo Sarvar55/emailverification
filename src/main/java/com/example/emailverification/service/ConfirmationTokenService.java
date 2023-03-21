@@ -33,7 +33,6 @@ public class ConfirmationTokenService {
         if (!checkIfExpiredToken.isTokenExpired(token))
             return false;
 
-        log.info("token expired di gecti:");
 
         User user = userRepository.findByEmail(token.getUser().getEmail());
         user.setEnable(true);
