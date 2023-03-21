@@ -1,0 +1,28 @@
+version: "3.1"
+
+services:
+  app:
+    container_name: sendingapp
+    image: sendinapp
+    build: ./
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mongodb
+      - spboot-rabbitmq
+  mongodb:
+    image: mongo
+    ports:
+      - "27016:27017"
+    volumes:
+      - /my/own/datadir:/data/db
+    environment:
+      - MONGO_INITDB_DATABASE=users
+  spboot-rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+    environment:
+      - RABBITMQ_DEFAULT_USER=sarvar
+      - RABBITMQ_DEFAULT_PASS=sarvar
